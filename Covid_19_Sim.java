@@ -2,18 +2,20 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-public class Covid_19_Sim extends JComponent {
+public class Covid_19_Sim extends JComponent implements ActionListener{
 
     /**
 	 * 
@@ -30,9 +32,11 @@ public class Covid_19_Sim extends JComponent {
     long desiredTime = (1000) / desiredFPS;
     // YOUR GAME VARIABLES WOULD GO HERE
 	
-
+    int speed = 5;
+    //player x direction
+    int playerXDirection = 1;
     //circle dot
-    Shape circle = new Ellipse2D.Double((WIDTH-100)/2, (HEIGHT-100)/2, 100, 100);
+    
 
     
 
@@ -76,6 +80,7 @@ public class Covid_19_Sim extends JComponent {
     public void paintComponent(Graphics g) {
 
     // GAME DRAWING STARTS HERE
+    	Shape circle = new Ellipse2D.Double((WIDTH-100)/2, (HEIGHT-100)/2, 100, 100);
     	Graphics2D g2 = (Graphics2D) g;
     	g2.draw(circle);
     }
@@ -92,9 +97,47 @@ public class Covid_19_Sim extends JComponent {
     // The main loop
     // In here is where all the logic for my app will go
     public void run() {
-    	
+        // Used to keep track of time used to draw and update the game
+        // This is used to limit the framerate later on
+        long startTime;
+        long deltaTime;
+
+        preSetup();
+
+        // the main game loop section
+        // game will end if you set done = false;
+        boolean done = false;
+        while (!done) {
+            // determines when we started so we can keep a framerate
+            startTime = System.currentTimeMillis();
+            
+            // all your game rules and move is done in here
+            // GAME LOGIC STARTS HERE
+
+            
+           
+           
+
+            // GAME LOGIC ENDS HERE 
+            // update the drawing (calls paintComponent)
+            repaint();
+
+            // SLOWS DOWN THE GAME BASED ON THE FRAMERATE ABOVE
+            // USING SOME SIMPLE MATH
+            deltaTime = System.currentTimeMillis() - startTime;
+            try {
+                if (deltaTime > desiredTime) {
+                    //took too much time, don't wait
+                    Thread.sleep(1);
+                } else {
+                    // sleep to make up the extra time
+                    Thread.sleep(desiredTime - deltaTime);
+                }
+            } catch (Exception e) {
+            };
+
+        }
     }
-    
     
     
     
@@ -141,4 +184,10 @@ public class Covid_19_Sim extends JComponent {
     	Covid_19_Sim sim = new Covid_19_Sim();
         sim.run();
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
