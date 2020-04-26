@@ -31,6 +31,13 @@ public class Covid_19_Sim extends JComponent implements ActionListener{
     long desiredFPS = 60;
     long desiredTime = (1000) / desiredFPS;
     // YOUR GAME VARIABLES WOULD GO HERE
+    
+    
+    //location of dot
+    double x = (WIDTH-100)/2;
+    double y = (HEIGHT-100)/2;
+    
+
 	
     int speed = 5;
     //player x direction
@@ -80,7 +87,10 @@ public class Covid_19_Sim extends JComponent implements ActionListener{
     public void paintComponent(Graphics g) {
 
     // GAME DRAWING STARTS HERE
-    	Shape circle = new Ellipse2D.Double((WIDTH-100)/2, (HEIGHT-100)/2, 100, 100);
+    	
+        //dot
+        Ellipse2D circle= new Ellipse2D.Double(x, y, 100, 100);
+    	
     	Graphics2D g2 = (Graphics2D) g;
     	g2.draw(circle);
     }
@@ -114,7 +124,7 @@ public class Covid_19_Sim extends JComponent implements ActionListener{
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE
 
-            
+            x++;
            
            
 
